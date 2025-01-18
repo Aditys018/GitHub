@@ -17,10 +17,13 @@ class MainViewModel @Inject constructor(
     val trendingRepositories = repository.trendingRepositories
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
-    fun refreshRepositories() {
+    init {
+        refreshRepositories()
+    }
+
+    private fun refreshRepositories() {
         viewModelScope.launch {
             repository.fetchAndStoreRepositories()
         }
     }
 }
-

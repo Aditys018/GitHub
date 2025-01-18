@@ -21,9 +21,7 @@ import com.aditys.gojek.viewmodel.MainViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-
-    val repositories by viewModel.trendingRepositories.collectAsState(initial = emptyList())
-
+    val repositories by viewModel.trendingRepositories.collectAsState()
 
     LazyColumn {
         items(repositories) { repo ->
@@ -39,9 +37,8 @@ fun RepositoryItem(repo: RepositoryEntity) {
             .padding(16.dp)
             .fillMaxWidth()
             .background(Color.White, RoundedCornerShape(8.dp))
-            .clickable {  }
+            .clickable { }
     ) {
-
         Text(text = repo.name, fontWeight = FontWeight.Bold)
         repo.description?.let { Text(text = it) }
         Text(text = "Language: ${repo.language ?: "Unknown"}")
