@@ -1,3 +1,4 @@
+
 package com.aditys.gojek.model
 
 import androidx.room.Entity
@@ -12,5 +13,6 @@ data class RepositoryEntity(
     val stars: Int,
     val forks: Int,
     val imageUrl: String,
-    val ownerName: String
+    val ownerName: String,
+    val lastFetched: Long
 )

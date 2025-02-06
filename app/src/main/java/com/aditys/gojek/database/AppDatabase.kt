@@ -1,8 +1,7 @@
-package com.aditys.gojek.database
+package com.aditys.gojek.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aditys.gojek.model.RepositoryEntity
 
 @Database(entities = [RepositoryEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

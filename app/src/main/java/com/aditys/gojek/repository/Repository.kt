@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
     val trendingRepositories: Flow<List<RepositoryEntity>>
-    suspend fun fetchAndStoreRepositories()
+    suspend fun getTrendingRepositories(): List<RepositoryEntity>
 }

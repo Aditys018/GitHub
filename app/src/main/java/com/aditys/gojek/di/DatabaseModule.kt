@@ -1,12 +1,13 @@
 package com.aditys.gojek.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import com.aditys.gojek.database.AppDatabase
-import com.aditys.gojek.database.RepositoryDao
+import com.aditys.gojek.model.AppDatabase
+import com.aditys.gojek.model.RepositoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -16,10 +17,16 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(app: Application): AppDatabase =
-        Room.databaseBuilder(app, AppDatabase::class.java, "trending_repos.db").build()
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabase::class.java,
+            "repositories.db"
+        ).build()
+    }
 
     @Provides
-    fun provideRepositoryDao(database: AppDatabase): RepositoryDao =
-        database.repositoryDao()
+    fun provideRepositoryDao(database: AppDatabase): RepositoryDao {
+        return database.repositoryDao()
+    }
 }
