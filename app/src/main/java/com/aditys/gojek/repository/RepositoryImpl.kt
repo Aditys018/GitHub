@@ -18,8 +18,8 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun fetchAndStoreRepositories() {
         withContext(Dispatchers.IO) {
-            val repos = api.getTrendingRepositories()
-            _trendingRepositories.value = repos.map { it.toEntity() }
+            val response = api.getTrendingRepositories()
+            _trendingRepositories.value = response.items.map { it.toEntity() }
         }
     }
 }

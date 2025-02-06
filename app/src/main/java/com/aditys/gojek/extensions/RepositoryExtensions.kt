@@ -9,7 +9,7 @@ fun Repository.toEntity(): RepositoryEntity {
         name = this.name,
         description = this.description,
         language = this.language,
-        stars = this.stars,
-        forks = this.forks
+        stars = this.stargazers_count,
+        forks = this.forks_count
     )
 }
