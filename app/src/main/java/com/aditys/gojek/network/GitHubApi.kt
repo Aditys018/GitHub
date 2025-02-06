@@ -1,6 +1,6 @@
 package com.aditys.gojek.network
 
-import com.aditys.gojek.model.Repository
+import com.aditys.gojek.model.DataClassRepo
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,5 +15,5 @@ interface GitHubApi {
 }
 
 data class SearchResponse(
-    val items: List<Repository>
+    val items: List<DataClassRepo>
 )

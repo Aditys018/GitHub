@@ -80,8 +80,12 @@ dependencies {
     // Accompanist for pull-to-refresh
     implementation (libs.accompanist.swiperefresh)
 
-    // Shimmer effect
-    implementation (libs.compose.shimmer)
+    // Shimmer for loading animation
+    implementation("com.valentinilk.shimmer:compose-shimmer:1.0.3")
+
+    // Coil for image loading
+    implementation(libs.coil.compose)
+
 
     // Testing libraries
     testImplementation (libs.junit)

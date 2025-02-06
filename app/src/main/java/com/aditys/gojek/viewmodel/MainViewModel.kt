@@ -2,28 +2,48 @@ package com.aditys.gojek.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aditys.gojek.repository.Repository
+import com.aditys.gojek.extensions.toEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.aditys.gojek.model.RepositoryEntity
+import com.aditys.gojek.network.GitHubApi
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: Repository
+    private val gitHubApi: GitHubApi
 ) : ViewModel() {
+    private val _trendingRepositories = MutableStateFlow<List<RepositoryEntity>>(emptyList())
+    val trendingRepositories: StateFlow<List<RepositoryEntity>> = _trendingRepositories
 
-    val trendingRepositories = repository.trendingRepositories
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage
 
     init {
-        refreshRepositories()
+        fetchTrendingRepositories()
     }
 
-    private fun refreshRepositories() {
+    private fun fetchTrendingRepositories() {
         viewModelScope.launch {
-            repository.fetchAndStoreRepositories()
+            _isLoading.value = true
+            try {
+                val response = gitHubApi.getTrendingRepositories()
+                _trendingRepositories.value = response.items.map { it.toEntity() }
+            } catch (e: HttpException) {
+                if (e.code() == 503) {
+                    _errorMessage.value = "Service Unavailable. Please try again later."
+                } else {
+                    _errorMessage.value = "An unexpected error occurred."
+                }
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }
