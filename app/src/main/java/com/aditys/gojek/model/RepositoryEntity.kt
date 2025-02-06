@@ -11,5 +11,6 @@ data class RepositoryEntity(
     val language: String?,
     val stars: Int,
     val forks: Int,
-    val imageUrl: String
+    val imageUrl: String,
+    val ownerName: String
 )

@@ -12,5 +12,6 @@ data class DataClassRepo(
 )
 
 data class Owner(
-    val avatar_url: String
+    val avatar_url: String,
+    val login: String
 )

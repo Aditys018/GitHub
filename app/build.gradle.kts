@@ -78,7 +78,8 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Accompanist for pull-to-refresh
-    implementation (libs.accompanist.swiperefresh)
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
+
 
     // Shimmer for loading animation
     implementation("com.valentinilk.shimmer:compose-shimmer:1.0.3")

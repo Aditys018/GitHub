@@ -10,7 +10,8 @@ fun DataClassRepo.toEntity(): RepositoryEntity {
         description = this.description,
         language = this.language,
         stars = this.stargazers_count,
-        forks = this.forks_count ,
-        imageUrl = this.owner.avatar_url
+        forks = this.forks_count,
+        imageUrl = this.owner.avatar_url,
+        ownerName = this.owner.login
     )
 }

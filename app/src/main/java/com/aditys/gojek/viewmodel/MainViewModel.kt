@@ -22,6 +22,9 @@ class MainViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean> = _isRefreshing
+
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
@@ -29,9 +32,10 @@ class MainViewModel @Inject constructor(
         fetchTrendingRepositories()
     }
 
-    private fun fetchTrendingRepositories() {
+    fun fetchTrendingRepositories() {
         viewModelScope.launch {
             _isLoading.value = true
+            _isRefreshing.value = true
             try {
                 val response = gitHubApi.getTrendingRepositories()
                 _trendingRepositories.value = response.items.map { it.toEntity() }
@@ -43,6 +47,7 @@ class MainViewModel @Inject constructor(
                 }
             } finally {
                 _isLoading.value = false
+                _isRefreshing.value = false
             }
         }
     }
