@@ -42,7 +42,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
     Column {
         Text(
-            text = "TRENDING REPOSITORIES",
+            text = "GITHUB TRENDING REPOSITORIES",
             modifier = Modifier.padding(25.dp),
             style = MaterialTheme.typography.headlineMedium
         )
